@@ -8,7 +8,7 @@ const CityOptions = ({cities}) => {
     <>
     <option value="">Vyberte</option>
     {cities.map((city) => (
-      <option value={city.name} 
+      <option value={city.code} 
             key={city.code}>
       {city.name}
       </option>))}
@@ -20,28 +20,22 @@ const DatesOptions = ({dates}) => {
     <>
       <option value="">Vyberte</option>
       {dates.map((date) => (
-        <option value={date.dateCs}
+        <option value={date.dateBasic}
         key={date.dateBasic}>
           {date.dateCs}
         </option>))}
-      {/* 
-      <option value="datum01">Datum 01</option>
-      <option value="datum02">Datum 02</option>
-      <option value="datum03">Datum 03</option>
-      <option value="datum04">Datum 04</option>
-      <option value="datum05">Datum 05</option> */}
     </>)
-
 }
-
-
-
 
 export const JourneyPicker = ({ onJourneyChange }) => {
 
   const handleSubmit = (event) => {
    event.preventDefault()
    console.log("odesilam objednavku"+ fromCity + toCity + date)
+   fetch(`https://apps.kodim.cz/daweb/leviexpress/api/journey?fromCity=${fromCity}&toCity=${toCity}&date=${date}`)
+    .then((response) => response.json())
+    .then((data) => onJourneyChange(data.results))
+
  }
 
  const [fromCity, setFromCity] = useState("")
@@ -97,6 +91,7 @@ export const JourneyPicker = ({ onJourneyChange }) => {
           <button 
             className="btn" 
             type="submit"
+            disabled={fromCity === "" || toCity === ""  || date ===""}
           > 
             Vyhledat spoj
           </button>
