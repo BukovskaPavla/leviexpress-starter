@@ -41,8 +41,8 @@ export const Home = ({onJourneyChange}) => {
           <JourneyDetail journey={journey} />, 
           <SelectedSeat number={journey.autoSeat} />,
           <div className="controls container">
-        <button className="btn btn--big" type="button" onClick={()=> handleBuy()}>Rezervovat</button>
-        </div>
+              <button className="btn btn--big" type="button" onClick={()=> handleBuy()}>Rezervovat</button>
+          </div>
           </>
        ) }
   </main>
